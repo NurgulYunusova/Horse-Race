@@ -11,16 +11,12 @@ const price = document.querySelector(".price");
 let amountOfDeposit;
 let chosenHorse = "";
 let wallet = 0;
+let winnerHorse = "";
 
 depositButton.addEventListener("click", (e) => {
   e.preventDefault();
-
   chosenHorse = horseList.value;
-  console.log(chosenHorse);
-
   amountOfDeposit = amount.value;
-  console.log(amountOfDeposit);
-
   amount.value = 0;
   horseList.options.selectedIndex = 0;
 });
@@ -46,7 +42,6 @@ startButton.addEventListener("click", () => {
 
     thirdHorsePlace += Math.floor(Math.random() * 20);
     thirdHorse.style.left = `${thirdHorsePlace}px`;
-    console.log(firstHorsePlace, secondHorsePlace, thirdHorsePlace);
 
     if (
       firstHorsePlace >= 600 ||
@@ -58,7 +53,7 @@ startButton.addEventListener("click", () => {
 
       if (firstHorsePlace >= 600) {
         alert("First horse win!");
-        price.innerText = amountOfDeposit;
+        winnerHorse = "firstHorse";
 
         firstHorsePlace = 0;
         secondHorsePlace = 0;
@@ -69,6 +64,7 @@ startButton.addEventListener("click", () => {
         thirdHorse.style.left = "0px";
       } else if (secondHorsePlace >= 600) {
         alert("Second horse win!");
+        winnerHorse = "secondHorse";
 
         firstHorsePlace = 0;
         secondHorsePlace = 0;
@@ -79,6 +75,7 @@ startButton.addEventListener("click", () => {
         thirdHorse.style.left = "0px";
       } else if (thirdHorsePlace >= 600) {
         alert("Third horse win!");
+        winnerHorse = "thirdHorse";
 
         firstHorsePlace = 0;
         secondHorsePlace = 0;
@@ -87,6 +84,14 @@ startButton.addEventListener("click", () => {
         firstHorse.style.left = "0px";
         secondHorse.style.left = "0px";
         thirdHorse.style.left = "0px";
+      }
+
+      if (chosenHorse === winnerHorse) {
+        wallet += amountOfDeposit * 2;
+        price.innerText = wallet;
+      } else {
+        wallet -= amountOfDeposit;
+        price.innerText = wallet;
       }
     }
   }, 150);

@@ -26,6 +26,32 @@
       <button type="button" class="startBtn">START</button>
     </div>
 
+    <div class="selectHorse">
+      <form>
+        <label for="horses">Choose a horse:</label>
+        <select id="horses" name="horseList" class="horseList">
+          <option value="firstHorse">Horse 1</option>
+          <option value="secondHorse">Horse 2</option>
+          <option value="thirdHorse">Horse 3</option>
+        </select>
+
+        <label for="amount">Amount:</label>
+        <input
+          type="text"
+          name="amount"
+          id="amount"
+          class="amount"
+          value="0"
+          required
+        />
+        <button type="submit" class="depositBtn">DEPOSIT</button>
+      </form>
+    </div>
+
+    <div class="wallet">
+      <h3>WALLET: $<span class="price">0</span>.00</h3>
+    </div>
+
     <div class="horseAudio">
       <audio controls class="horseAudioMp3">
         <source src="./audio/horse.mp3" type="audio/mpeg" />

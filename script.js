@@ -12,20 +12,26 @@ let amountOfDeposit;
 let chosenHorse = "";
 let wallet = 0;
 let winnerHorse = "";
+startButton.disabled = true;
 
 depositButton.addEventListener("click", (e) => {
   e.preventDefault();
   chosenHorse = horseList.value;
-  amountOfDeposit = amount.value;
-  amount.value = 0;
-  horseList.options.selectedIndex = 0;
+
+  if (amount.value.match(/^[0-9]+$/) && amount.value[0] != 0) {
+    amountOfDeposit = amount.value;
+    amount.value = 0;
+    horseList.options.selectedIndex = 0;
+    startButton.disabled = false;
+    depositButton.disabled = true;
+    amount.disabled = true;
+    horseList.disabled = true;
+  } else {
+    alert("Input contains only numbers. For example: 200, 450, ...");
+  }
 });
 
 startButton.addEventListener("click", () => {
-  // setInterval(function () {
-  //   horseAudio.play();
-  // }, 1100);
-
   horseAudio.currentTime = 0;
   horseAudio.play();
 
@@ -33,14 +39,16 @@ startButton.addEventListener("click", () => {
   let secondHorsePlace = 0;
   let thirdHorsePlace = 0;
 
+  startButton.disabled = true;
+
   let race = setInterval(function () {
-    firstHorsePlace += Math.floor(Math.random() * 20);
+    firstHorsePlace += Math.round(Math.random() * 20);
     firstHorse.style.left = `${firstHorsePlace}px`;
 
-    secondHorsePlace += Math.floor(Math.random() * 20);
+    secondHorsePlace += Math.round(Math.random() * 20);
     secondHorse.style.left = `${secondHorsePlace}px`;
 
-    thirdHorsePlace += Math.floor(Math.random() * 20);
+    thirdHorsePlace += Math.round(Math.random() * 20);
     thirdHorse.style.left = `${thirdHorsePlace}px`;
 
     if (
@@ -62,6 +70,11 @@ startButton.addEventListener("click", () => {
         firstHorse.style.left = "0px";
         secondHorse.style.left = "0px";
         thirdHorse.style.left = "0px";
+
+        startButton.disabled = true;
+        depositButton.disabled = false;
+        amount.disabled = false;
+        horseList.disabled = false;
       } else if (secondHorsePlace >= 600) {
         alert("Second horse win!");
         winnerHorse = "secondHorse";
@@ -73,6 +86,11 @@ startButton.addEventListener("click", () => {
         firstHorse.style.left = "0px";
         secondHorse.style.left = "0px";
         thirdHorse.style.left = "0px";
+
+        startButton.disabled = true;
+        depositButton.disabled = false;
+        amount.disabled = false;
+        horseList.disabled = false;
       } else if (thirdHorsePlace >= 600) {
         alert("Third horse win!");
         winnerHorse = "thirdHorse";
@@ -84,6 +102,11 @@ startButton.addEventListener("click", () => {
         firstHorse.style.left = "0px";
         secondHorse.style.left = "0px";
         thirdHorse.style.left = "0px";
+
+        startButton.disabled = true;
+        depositButton.disabled = false;
+        amount.disabled = false;
+        horseList.disabled = false;
       }
 
       if (chosenHorse === winnerHorse) {
